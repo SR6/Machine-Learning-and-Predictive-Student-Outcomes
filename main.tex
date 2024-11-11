@@ -37,9 +37,9 @@ Socioeconomic status also affects access to Twentieth century necessities like i
 School systems focus on state testing scores as that is how they are ranked for public viewing. \citep{linnetal} These rankings then influence who chooses to buy homes within the district, which in turn influences the socioeconomic level of the population and the educational attainment and retention of the teaching, support, and admin staff attracted to said schools. The unfortunate side effect is that limited resources get reallocated to focus on preparation and support surrounding state testing, to the detriment of more holistic approaches to support the entire student. \citep{cradle}
 
 \section*{Methods}
-The data selected for analysis has anonymous student information. It includes columns for parental education, reduced/free lunch, whether they completed a test preparation course, along with gender and test scores for math, reading, and writing assessments. There is enough information to make an educated guess as to the socioeconomic level of each student. I based the socioeconomic level on parental education and whether the student was on reduced/free lunch plan.  Many studies base it on the mother's level of education, but this data set doesn't have that sort of granularity. \citep{maternaleducation}
+The data selected for analysis has anonymous student information for 1000 students. It includes columns for parental education, reduced/free lunch, whether they completed a test preparation course, along with gender and test scores for math, reading, and writing assessments. There is enough information to make an educated guess as to the socioeconomic level of each student. I based the socioeconomic level on parental education and whether the student was on reduced/free lunch plan.  Many studies base it on the mother's level of education, but this data set doesn't have that sort of granularity. \citep{maternaleducation} \citep{maternaleducation2} \citep{maternaleducation3}
 
-I began my training by doing pre-processing of the original data. I wanted to see the data analysis correlating the parent's education level with the passing rates of their children. I kept each of the individual standardized testing areas separate to see if there were different correlations for the different subjects. Graphs demonstrated a small difference in outcomes between the subject areas, but it was more noticeable the variability of the pass rate within each group than how many of the students of each group passed.
+I began my training by doing pre-processing of the original data. I wanted to see the data analysis correlating the parent's education level with the passing rates of their children. I kept each of the individual standardized testing areas separate to see if there were different correlations for the different subjects. Graphs demonstrated a small difference in outcomes between the subject areas, but it was more noticeable the variability of the mean pass rate within each group than how many of the students of each group passed.
 \linebreak[2]
 \begin{figure}[h!]
     \centering
@@ -61,13 +61,16 @@ I began my training by doing pre-processing of the original data. I wanted to se
     \end{subfigure}
 \end{figure}
 
-Focusing on the Math Scores chart, while the students of all parental education levels were able to attain a similar top end score, the variability of the plot indicates a higher mean the more education the parents were able to obtain.  Students of parents with a Master's degree had the highest mean math score, but there isn't a big difference in the mean for the other categories.  The most noticeable difference between the categories is the lowest score rate. The lower the education level of the parents, the lower the lowest scores of the students.  Clearly there is some correlation, but not as strong of one as might be expected based on the volume of literature around SES and student success.
+Focusing on the Math Scores chart, while the students of all parental education levels were able to attain a similar top end score, the variability of the plot indicates a higher mean the more education the parents obtained.  Students of parents with a Master's degree had the highest mean math score, but the other education levels didn't show a significant difference in the mean.  The most noticeable difference between the categories is the lowest score rate. The lower the education level of the parents, the lower the lowest scores of the students.  Clearly there is some correlation, but not as strong of one as might be expected based on the volume of literature around SES and student success at least for this data set.
 
 Similar to the Math score graph, the Reading and Writing scores show variability relative to parental education level.  It is more noticeable that those whose parents only achieved at or below a high school level of education had lower mean and bottom end scores in reading and writing. It would appear that within this dataset, the influence of parent's education is more noticeable in reading and writing ability than math.
 
-
+I prepared the dataset by One Hot Encoding the parental education, gender, reduced/free lunch, and completion of test preparation course columns. I split the data into 80 percent test and 20 percent validation.  I used the individual scores on math, writing, and reading as the gold label standards. They were created separately and randomized and split individually with the original training set.
 
 \section*{Results and Analysis}
+Initially I tried a simple Sequential model using keras layers. The first model consisted of three Dense layers where the first layer produced a [64]  output with a sigmoid activation, the second layer a [32] output with a softmax activation, and the final layer a single [1] prediction value between 0 and 100 for the individual test score.  I tested it with Adam, MSE, and RMSProp optimizer, along with MSE and Binary Crossentropy loss functions. The best combination was RMSProp with Binary Crossentropy. I ran it for math, writing, and reading, and the accuracy was fairly close in all cases. Accuracy ranged from 63 to 65 percent across all three metrics individually.  Increase the number of epochs did not significantly increase the accuracy rating.  I found that I could change many things to make the accuracy much worse, as low as 12 percent in some set-ups, but nothing I did increased the accuracy much.
+
+
 \section*{Conclusion}
 \section*{Glossary}
 Given there are some terms which come up over and over, I will provide the intended definitions to the most prevalent ones here.
@@ -77,7 +80,7 @@ Given there are some terms which come up over and over, I will provide the inten
 \item[SEG] Socioeconomic Groups. Defined as the people belonging within the same Socioeconomic status
 \end{description}
 
-\bibliographystyle{apa}
+\bibliographystyle{apalike}
 \bibliography{./sample.bib}
 
 \end{document}
