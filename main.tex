@@ -1,46 +1,47 @@
-\documentclass[fleqn,10pt]{olplainarticle}
-% Use option lineno for line numbers 
-\usepackage{caption}
-\usepackage{subcaption}
-\title{Machine Learning and Predictive Student Outcomes}
+\documentclass[man,12pt]{apa6} % Options: jou (journal), man (manuscript), doc (document)
+\usepackage[american]{babel} % Set language
+\usepackage{csquotes}        % Required for APA citations
+\usepackage{apacite}         % For APA-style references
+\usepackage{graphicx}        % For including figures
+\usepackage{amsmath}         % For mathematical equations
 
+
+\title{Predicting Student Outcomes on Standardized Testing using Machine Learning}
+\shorttitle{Predicting Student Outcomes}
 \author{Stacy Roberts}
-\affil{robers23@utexas.edu}
+\affiliation{The University of Texas at Austin}
+\date{December 2024}
 
-\keywords{Machine Learning, Education, Student Outcomes, Student Success, Long-Term Success}
-
-\begin{abstract}
-Finding a solution to the problem of student success has long been a goal and a difficulty of education. Helping teachers, administrators, and support staff understand which students will benefit from additional intervention to achieve successful outcomes is assumed to increase the completion rate for all students. Being able to focus on what types of students are likely to need closer monitoring helps focus public school limited resources where they may see the highest return on investment. Accounting for co-variants outside of the school control is also necessary to understanding how best to serve the student population of a given school. This paper will focus on success in terms of standardized testing scores in Math, Reading, and Writing. Using various machine learning models, we attempt to demonstrate which pre-processing and models perform the best at predicting student success rates on subject testing.\end{abstract}
+\abstract{
+Finding a solution to the problem of student success has long been a goal and a difficulty of education. Helping teachers, administrators, and support staff understand which students will benefit from additional intervention to achieve successful outcomes is assumed to increase the completion rate for all students. Being able to focus on what types of students are likely to need closer monitoring helps focus public school limited resources where they may see the highest return on investment. Accounting for co-variants outside of the school control is also necessary to understanding how best to serve the student population of a given school. This paper will focus on success in terms of standardized testing scores in Math, Reading, and Writing. Using various machine learning models, we attempt to demonstrate which pre-processing and models perform the best at predicting student success rates on subject testing.}
 
 \begin{document}
-
-\flushbottom
 \maketitle
-\thispagestyle{empty}
 
-\section*{Introduction}
+\section{Introduction}
 
-Predicting student outcomes is a necessary function of the public school system, which is tasked with maximizing the success of their entire student population. All schools are invested in the percentage of their students who graduate on time and go on to higher education or employment, as it is reflective of the success of the school itself. However, gaining access to student data is easier with public schools given the government mandates of public reporting they are required to follow. \citep{ecsa} This paper will focus on public school data.
+Predicting student outcomes is a necessary function of the public school system, which is tasked with maximizing the success of their entire student population. All schools are invested in the percentage of their students who graduate on time and go on to higher education or employment, as it is reflective of the success of the school itself. However, gaining access to student data is easier with public schools given the government mandates of public reporting they are required to follow. \cite{ecsa} This paper will focus on public school data.
 
-There are many ideas of what types of students require more assistance to be successful in school. Focus is generally placed on socioeconomic background, race, gender, and parental education level. \citep{Bradley2022SESgap}  Time and again, higher socioeconomic areas have higher student achievement outcomes. This is true for both the high and low socioeconomic groups when the average status is higher for the area.  Higher SEG (Socioeconomic Groups) have many advantages, from stable homes and plentiful food to higher quality and more stable teaching and administrative staff at the schools which service them. \citep{HSEffectsLongTerm} This paper is not intending to check all possible differentials, but does note that it is difficult to separate all the co-variant factors which contribute to the success of a student population. Is it more important to have a stable, effective teaching staff or to provide a support system where all students have stability and enough food to eat? Ideal data sets for investigating this theory would involve students of equally matched SES with large differentials in staff quality, as well as students with same teachers but large differential in SES to attempt to isolate how important SES is for student success. Since families are generally uninterested in subjecting their children to be test subjects for educational theories which may impact their success, it is very difficult to find this type of data set.
+There are many ideas of what types of students require more assistance to be successful in school. Focus is generally placed on socioeconomic background, race, gender, and parental education level. \cite{Bradley2022SESgap}  Time and again, higher socioeconomic areas have higher student achievement outcomes. This is true for both the high and low socioeconomic groups when the average status is higher for the area.  Higher SEG (Socioeconomic Groups) have many advantages, from stable homes and plentiful food to higher quality and more stable teaching and administrative staff at the schools which service them. \cite{HSEffectsLongTerm} This paper is not intending to check all possible differentials, but does note that it is difficult to separate all the co-variant factors which contribute to the success of a student population. Is it more important to have a stable, effective teaching staff or to provide a support system where all students have stability and enough food to eat? Ideal data sets for investigating this theory would involve students of equally matched SES with large differentials in staff quality, as well as students with same teachers but large differential in SES to attempt to isolate how important SES is for student success. Since families are generally uninterested in subjecting their children to be test subjects for educational theories which may impact their success, it is very difficult to find this type of data set.
 
-Yet there are some pockets of students who outperform expectations based on background. \citep{YanGaiLowSEG} These students often have **need to finish this thought with other research**
+Yet there are some pockets of students who outperform expectations based on background. \cite{YanGaiLowSEG} These students often have **need to finish this thought with other research**
 
 This paper aims to utilize different Machine Learning models to see if we can train and fine tune a model to predict the students who are risk of failing standardized math, reading, and writing assessments based on available background information.
-\section*{Research Background}
+
+\section{Research Background}
 Efforts to improve student outcomes have had varying rates of success. There is no single path which guarantees that all students achieve high school graduation and beyond.  Instead, there is a continuous cycle of new research, new methods, new options to try to increase material retention, attendance, and ultimately, state testing scores.
 
-Study after study has found that students who enter kindergarten behind their peers will struggle to make up the gap through their entire schooling. \citep{EdInequities} \citep{sesbehind1} \citep{sesbehind2} \citep{sesbehind3}  High quality and accessible pre-K, along with increasing availability of books at home have been shown to make significant improvements in preparing students for kindergarten. However, there are precious few resources for families on the lower and middle socioeconomic spectrum to access these trajectory changing elements for their children. \citep{cradleK} Providing more social safety nets such as paid parental leave, affordable child care, and more expanded and intensive services for families experiencing multiple adversities similar to every other developed nation would significantly improve the standing of children born into the more dire of situation.
+Study after study has found that students who enter kindergarten behind their peers will struggle to make up the gap through their entire schooling. \cite{EdInequities} \cite{sesbehind1} \cite{sesbehind2} \cite{sesbehind3}  High quality and accessible pre-K, along with increasing availability of books at home have been shown to make significant improvements in preparing students for kindergarten. However, there are precious few resources for families on the lower and middle socioeconomic spectrum to access these trajectory changing elements for their children. \cite{cradleK} Providing more social safety nets such as paid parental leave, affordable child care, and more expanded and intensive services for families experiencing multiple adversities similar to every other developed nation would significantly improve the standing of children born into the more dire of situation.
 
-Socioeconomic status also affects access to Twentieth century necessities like internet access and personal laptops. Given that nearly all school systems use online classrooms and school work, having access to a personal computer and internet at home is a requirement to be successful in school. However, personal computers come with a significant price tag and internet, even with income based discounts, is a monthly expense many families cannot afford.\citep{sesinternet} 
+Socioeconomic status also affects access to Twentieth century necessities like internet access and personal laptops. Given that nearly all school systems use online classrooms and school work, having access to a personal computer and internet at home is a requirement to be successful in school. However, personal computers come with a significant price tag and internet, even with income based discounts, is a monthly expense many families cannot afford.\cite{sesinternet} 
 
-School systems focus on state testing scores as that is how they are ranked for public viewing. \citep{linnetal} These rankings then influence who chooses to buy homes within the district, which in turn influences the socioeconomic level of the population and the educational attainment and retention of the teaching, support, and admin staff attracted to said schools. The unfortunate side effect is that limited resources get reallocated to focus on preparation and support surrounding state testing, to the detriment of more holistic approaches to support the entire student. \citep{cradle}
+School systems focus on state testing scores as that is how they are ranked for public viewing. \cite{linnetal} These rankings then influence who chooses to buy homes within the district, which in turn influences the socioeconomic level of the population and the educational attainment and retention of the teaching, support, and admin staff attracted to said schools. The unfortunate side effect is that limited resources get reallocated to focus on preparation and support surrounding state testing, to the detriment of more holistic approaches to support the entire student. \cite{cradle}
 
-\section*{Methods}
-The data selected for analysis has anonymous student information for 1000 students. It includes columns for parental education, reduced/free lunch, whether they completed a test preparation course, along with gender and test scores for math, reading, and writing assessments. There is enough information to make an educated guess as to the socioeconomic level of each student. I based the socioeconomic level on parental education and whether the student was on reduced/free lunch plan.  Many studies base it on the mother's level of education, but this data set doesn't have that sort of granularity. \citep{maternaleducation} \citep{maternaleducation2} \citep{maternaleducation3}
+\section{Methods}
+The data selected for analysis has anonymous student information for 1000 students. It includes columns for parental education, reduced/free lunch, whether they completed a test preparation course, along with gender and test scores for math, reading, and writing assessments. There is enough information to make an educated guess as to the socioeconomic level of each student. Socioeconomic level was based on parental education and whether the student was on reduced/free lunch plan.  Many studies base it on the mother's level of education, but this data set doesn't have that sort of granularity. \cite{maternaleducation} \cite{maternaleducation2} \cite{maternaleducation3}
 
-I began my training by doing pre-processing of the original data. I wanted to see the data analysis correlating the parent's education level with the passing rates of their children. I kept each of the individual standardized testing areas separate to see if there were different correlations for the different subjects. Graphs demonstrated a small difference in outcomes between the subject areas, but it was more noticeable the variability of the mean pass rate within each group than how many of the students of each group passed.
-\linebreak[2]
+The training began by performing pre-processing of the original data. Of interest was seeing if the data analysis showed any correlation between the parent's education level and the passing rates of their children. Each individualized standardized testing area was evaluated separately to see if there were different correlations for the different subjects. Graphs demonstrated a small difference in outcomes between the subject areas, but it was more noticeable the variability of the mean pass rate within each group. Those students with the highest level of indicated parental education also achieved the highest mean, with little variation among the other levels of parental education achievement.
+%\linebreak[2]
 \begin{figure}[h!]
     \centering
     \caption{Correlations of Parent Education to Student Subject Scores}
@@ -65,22 +66,20 @@ Focusing on the Math Scores chart, while the students of all parental education 
 
 Similar to the Math score graph, the Reading and Writing scores show variability relative to parental education level.  It is more noticeable that those whose parents only achieved at or below a high school level of education had lower mean and bottom end scores in reading and writing. It would appear that within this dataset, the influence of parent's education is more noticeable in reading and writing ability than math.
 
-I prepared the dataset by One Hot Encoding the parental education, gender, reduced/free lunch, and completion of test preparation course columns. I split the data into 80 percent test and 20 percent validation.  I used the individual scores on math, writing, and reading as the gold label standards. They were created separately and randomized and split individually with the original training set.
+Preparation of the dataset involved One Hot Encoding the parental education, gender, reduced/free lunch, and completion of test preparation course columns. The racial category was removed for this trial. The data was then split into 80 percent test and 20 percent validation.  Individual scores on math, writing, and reading were used as the gold label standards. They were created separately and randomized and split individually from the original training set. This worked well for the Sequential network, but it worked for absolutely no other attempted network - not RandomForest, Linear Regression, DecisionTreeRegressor ....
 
-\section*{Results and Analysis}
-Initially I tried a simple Sequential model using keras layers. The first model consisted of three Dense layers where the first layer produced a [64]  output with a sigmoid activation, the second layer a [32] output with a softmax activation, and the final layer a single [1] prediction value between 0 and 100 for the individual test score.  I tested it with Adam, MSE, and RMSProp optimizer, along with MSE and Binary Crossentropy loss functions. The best combination was RMSProp with Binary Crossentropy. I ran it for math, writing, and reading, and the accuracy was fairly close in all cases. Accuracy ranged from 63 to 65 percent across all three metrics individually.  Increase the number of epochs did not significantly increase the accuracy rating.  I found that I could change many things to make the accuracy much worse, as low as 12 percent in some set-ups, but nothing I did increased the accuracy much.
+Preprocessing the data again the gender, reduced/free lunch, and completion of test preparation course were once again One Hot Encoded, and again the racial demographics were not included. However, this attempt MinMax was applied to the data. While the Sequential network performed nearly identically on either processing, Linear Regression and DecisionTreeRegressor now performed significantly better.  Both outperformed the Sequential network by a factor of one and a half increased accuracy.
+
+\section{Results and Analysis}
+The initial attempt used a simple Sequential model made of keras layers. The first model consisted of three Dense layers where the first layer produced a [64]  output with a sigmoid activation, the second layer a [32] output with a softmax activation, and the final layer a single [1] prediction value between 0 and 100 for the individual test score.  This model was tested with the following optimizers: Adam, MSE, and RMSProp. It was also tested with the following loss functions: MSE and Binary Crossentropy. All combinations were attempted for best accuracy. The best combination was RMSProp with Binary Crossentropy. The model was evaluated across math, writing, and reading, individually, and the accuracy was fairly close in all cases. Accuracy ranged from 63 to 65 percent across all three metrics individually.  Increasing the number of epochs did not significantly increase the accuracy rating.  Tuning of hyperparameters had a negative effect on accuracy, causing it to dip as low as 12 percent.  However, no options increased the accuracy rating with this model and best combination of optimizer/loss functions.
+
+The next model tested was LinearRegression. The original preprocessed dataset did not perform well at all with this model. Only once MinMaxScaler was applied to normalize the dataset was the model successful at predicting the student standardized score. The metric used to evaluate the model was Mean Square Error, as 
 
 
-\section*{Conclusion}
-\section*{Glossary}
-Given there are some terms which come up over and over, I will provide the intended definitions to the most prevalent ones here.
+\section{Conclusion}
 
-\begin{description}
-\item[SES] Socioeconomic Status. Defined as low, medium, or high, it relates to a family's wealth and income, educational attainment, occupational prestige, and perceived social status and social class.\citep{sesdef}
-\item[SEG] Socioeconomic Groups. Defined as the people belonging within the same Socioeconomic status
-\end{description}
-
-\bibliographystyle{apalike}
-\bibliography{./sample.bib}
+\section{References}
+\bibliographystyle{apacite} % APA citation style
+\bibliography{bibliography}  % Reference to your .bib file
 
 \end{document}
